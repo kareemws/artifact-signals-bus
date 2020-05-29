@@ -10,7 +10,9 @@ interface Emitter<SignalsParent : Signal> {
         signalsEmitter.acknowledgeSignal(signal)
     }
 
-    fun enqueueSignal(signal: SignalsParent) {
-        signalsEmitter.enqueueSignal(signal)
+    fun enqueueSignal(vararg signals: SignalsParent) {
+        signals.forEach {
+            signalsEmitter.enqueueSignal(it)
+        }
     }
 }

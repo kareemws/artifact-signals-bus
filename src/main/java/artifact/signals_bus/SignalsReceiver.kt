@@ -25,9 +25,11 @@ class SignalsReceiver<SignalsParent : Signal>(private val lifecycleOwner: Lifecy
     }
 
     private val signalsObserver = Observer<SignalsParent> { signal ->
-        signalsHandler?.invoke(signal)
-        acknowledgementHandler.invoke(signal)
-        resume()
+        signal?.let {
+            signalsHandler?.invoke(it)
+            acknowledgementHandler.invoke(it)
+            resume()
+        } ?: resume()
     }
 
     private var isProcessing: Boolean = false
